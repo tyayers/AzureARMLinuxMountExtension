@@ -1,0 +1,444 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_TMP_VMS_CCBJB_name": {
+            "defaultValue": "TMP-VMS-CCBJB",
+            "type": "String"
+        },
+        "networkInterfaces_tmp_vms_ccbjb533_name": {
+            "defaultValue": "tmp-vms-ccbjb533",
+            "type": "String"
+        },
+        "publicIPAddresses_TMP_VMS_CCBJB_ip_name": {
+            "defaultValue": "TMP-VMS-CCBJB-ip",
+            "type": "String"
+        },
+        "virtualNetworks_TMP_VMS_CCBJB_vnet_name": {
+            "defaultValue": "TMP-VMS-CCBJB-vnet",
+            "type": "String"
+        },
+        "storageAccounts_tmpvmsccbjbdiag178_name": {
+            "defaultValue": "tmpvmsccbjbdiag178",
+            "type": "String"
+        },
+        "networkSecurityGroups_TMP_VMS_CCBJB_nsg_name": {
+            "defaultValue": "TMP-VMS-CCBJB-nsg",
+            "type": "String"
+        },
+        "schedules_shutdown_computevm_tmp_vms_ccbjb_name": {
+            "defaultValue": "shutdown-computevm-tmp-vms-ccbjb",
+            "type": "String"
+        },
+        "subnets_default_name": {
+            "defaultValue": "default",
+            "type": "String"
+        },
+        "securityRules_default_allow_ssh_name": {
+            "defaultValue": "default-allow-ssh",
+            "type": "String"
+        },
+        "virtualMachines_TMP_VMS_CCBJB_id": {
+            "defaultValue": "/subscriptions/b0e0a52a-384f-46a2-b809-ddec15e60b83/resourceGroups/TMP-VMS-CCBJB/providers/Microsoft.Compute/disks/TMP-VMS-CCBJB_OsDisk_1_6afbe9d56ee9459688d26c8e0817f7b0",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/b0e0a52a-384f-46a2-b809-ddec15e60b83/resourceGroups/TMP-VMS-CCBJB/providers/Microsoft.Compute/virtualMachines/TMP-VMS-CCBJB'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_TMP_VMS_CCBJB_name')]",
+            "apiVersion": "2017-03-30",
+            "location": "westeurope",
+            "scale": null,
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B1s"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "OpenLogic",
+                        "offer": "CentOS",
+                        "sku": "7.4",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Linux",
+                        "name": "[concat(parameters('virtualMachines_TMP_VMS_CCBJB_name'),'_OsDisk_1_6afbe9d56ee9459688d26c8e0817f7b0')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "storageAccountType": "Premium_LRS"
+                        },
+                        "diskSizeGB": 31
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_TMP_VMS_CCBJB_name')]",
+                    "adminUsername": "tyayers",
+                    "adminPassword": "Rushmore%1212",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": false
+                    },
+                    "secrets": []
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_tmp_vms_ccbjb533_name'))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[concat('https', '://', parameters('storageAccounts_tmpvmsccbjbdiag178_name'), '.blob.core.windows.net', '/')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_tmp_vms_ccbjb533_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_tmpvmsccbjbdiag178_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b0e0a52a-384f-46a2-b809-ddec15e60b83/resourceGroups/TMP-VMS-CCBJB/providers/Microsoft.Network/networkInterfaces/tmp-vms-ccbjb533'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_tmp_vms_ccbjb533_name')]",
+            "apiVersion": "2017-06-01",
+            "location": "westeurope",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "ac301890-31ee-4388-b00b-590cb1d372bd",
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "etag": "W/\"deb57028-293a-4fc5-a0d5-5e1a7d3c56f9\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "privateIPAddress": "10.0.2.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_TMP_VMS_CCBJB_ip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_TMP_VMS_CCBJB_vnet_name'), parameters('subnets_default_name'))]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": [],
+                    "appliedDnsServers": [],
+                    "internalDomainNameSuffix": "rdimslnxa5eu3bmje0mfwupkae.ax.internal.cloudapp.net"
+                },
+                "macAddress": "00-0D-3A-2C-D7-C9",
+                "enableAcceleratedNetworking": false,
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_TMP_VMS_CCBJB_nsg_name'))]"
+                },
+                "primary": true,
+                "virtualMachine": {
+                    "id": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_TMP_VMS_CCBJB_name'))]"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_TMP_VMS_CCBJB_ip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_TMP_VMS_CCBJB_vnet_name'), parameters('subnets_default_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_TMP_VMS_CCBJB_nsg_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b0e0a52a-384f-46a2-b809-ddec15e60b83/resourceGroups/TMP-VMS-CCBJB/providers/Microsoft.Network/networkSecurityGroups/TMP-VMS-CCBJB-nsg'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_TMP_VMS_CCBJB_nsg_name')]",
+            "apiVersion": "2017-06-01",
+            "location": "westeurope",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "028001e1-1458-439e-96c2-36fa0811fece",
+                "securityRules": [
+                    {
+                        "name": "default-allow-ssh",
+                        "etag": "W/\"fbbd13dc-fc9a-4bfa-8d72-42cb4953b873\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Inbound",
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ],
+                "defaultSecurityRules": [
+                    {
+                        "name": "AllowVnetInBound",
+                        "etag": "W/\"fbbd13dc-fc9a-4bfa-8d72-42cb4953b873\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow inbound traffic from all VMs in VNET",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "VirtualNetwork",
+                            "destinationAddressPrefix": "VirtualNetwork",
+                            "access": "Allow",
+                            "priority": 65000,
+                            "direction": "Inbound",
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowAzureLoadBalancerInBound",
+                        "etag": "W/\"fbbd13dc-fc9a-4bfa-8d72-42cb4953b873\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow inbound traffic from azure load balancer",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "AzureLoadBalancer",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 65001,
+                            "direction": "Inbound",
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "DenyAllInBound",
+                        "etag": "W/\"fbbd13dc-fc9a-4bfa-8d72-42cb4953b873\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Deny all inbound traffic",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 65500,
+                            "direction": "Inbound",
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowVnetOutBound",
+                        "etag": "W/\"fbbd13dc-fc9a-4bfa-8d72-42cb4953b873\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow outbound traffic from all VMs to all VMs in VNET",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "VirtualNetwork",
+                            "destinationAddressPrefix": "VirtualNetwork",
+                            "access": "Allow",
+                            "priority": 65000,
+                            "direction": "Outbound",
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowInternetOutBound",
+                        "etag": "W/\"fbbd13dc-fc9a-4bfa-8d72-42cb4953b873\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow outbound traffic from all VMs to Internet",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 65001,
+                            "direction": "Outbound",
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "DenyAllOutBound",
+                        "etag": "W/\"fbbd13dc-fc9a-4bfa-8d72-42cb4953b873\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Deny all outbound traffic",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 65500,
+                            "direction": "Outbound",
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b0e0a52a-384f-46a2-b809-ddec15e60b83/resourceGroups/TMP-VMS-CCBJB/providers/Microsoft.Network/publicIPAddresses/TMP-VMS-CCBJB-ip'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_TMP_VMS_CCBJB_ip_name')]",
+            "apiVersion": "2017-06-01",
+            "location": "westeurope",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "df02e3dc-6b58-4430-995a-5b23b7a1f293",
+                "ipAddress": "52.157.144.50",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b0e0a52a-384f-46a2-b809-ddec15e60b83/resourceGroups/TMP-VMS-CCBJB/providers/Microsoft.Network/virtualNetworks/TMP-VMS-CCBJB-vnet'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_TMP_VMS_CCBJB_vnet_name')]",
+            "apiVersion": "2017-06-01",
+            "location": "westeurope",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "2dc9d088-07b7-4ec9-8589-26985b51ea04",
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.2.0/24"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "default",
+                        "etag": "W/\"9f6f1124-7197-42dc-8f4f-bf1dfdf566a2\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "10.0.2.0/24"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": []
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b0e0a52a-384f-46a2-b809-ddec15e60b83/resourceGroups/tmp-vms-ccbjb/providers/Microsoft.Storage/storageAccounts/tmpvmsccbjbdiag178'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_tmpvmsccbjbdiag178_name')]",
+            "apiVersion": "2017-06-01",
+            "location": "westeurope",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "encryption": {
+                    "keySource": "Microsoft.Storage",
+                    "services": {
+                        "blob": {
+                            "enabled": true
+                        },
+                        "file": {
+                            "enabled": true
+                        }
+                    }
+                },
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "defaultAction": "Allow",
+                    "ipRules": [],
+                    "virtualNetworkRules": []
+                },
+                "supportsHttpsTrafficOnly": false
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b0e0a52a-384f-46a2-b809-ddec15e60b83/resourceGroups/TMP-VMS-CCBJB/providers/Microsoft.Network/networkSecurityGroups/TMP-VMS-CCBJB-nsg/securityRules/default-allow-ssh'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_TMP_VMS_CCBJB_nsg_name'), '/', parameters('securityRules_default_allow_ssh_name'))]",
+            "apiVersion": "2017-06-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "protocol": "TCP",
+                "sourcePortRange": "*",
+                "destinationPortRange": "22",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 1000,
+                "direction": "Inbound",
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_TMP_VMS_CCBJB_nsg_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/b0e0a52a-384f-46a2-b809-ddec15e60b83/resourceGroups/TMP-VMS-CCBJB/providers/Microsoft.Network/virtualNetworks/TMP-VMS-CCBJB-vnet/subnets/default'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_TMP_VMS_CCBJB_vnet_name'), '/', parameters('subnets_default_name'))]",
+            "apiVersion": "2017-06-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "10.0.2.0/24"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_TMP_VMS_CCBJB_vnet_name'))]"
+            ]
+        },
+        {
+			"type": "Microsoft.Compute/virtualMachines/extensions",
+			"name": "[concat(parameters('virtualMachines_TMP_VMS_CCBJB_name'), '/mountShare')]",
+			"location": "westeurope",
+			"apiVersion": "2017-03-30",
+			"tags": {
+				"displayName": "MountShare"
+			},
+			"dependsOn": [
+				"[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachines_TMP_VMS_CCBJB_name'))]"
+			],
+			"properties": {
+				"publisher": "Microsoft.Azure.Extensions",
+				"type": "CustomScript",
+				"typeHandlerVersion": "2.0",
+				"autoUpgradeMinorVersion": true,
+				"settings": {
+					"fileUris": [
+						"https://tyfiles.blob.core.windows.net/scripts/mount.sh"
+					]
+				},
+				"protectedSettings": {
+					"commandToExecute": "sh mount.sh"
+				}
+			}
+		}        
+    ]
+}

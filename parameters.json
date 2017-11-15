@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_TMP_VMS_CCBJB_name": {
+            "value": "TMP_VMS_CCBJB"
+        },
+        "networkInterfaces_tmp_vms_ccbjb533_name": {
+            "value": "tmp-vms-ccbjb533"
+        },
+        "publicIPAddresses_TMP_VMS_CCBJB_ip_name": {
+            "value": "TMP-VMS-CCBJB-ip"
+        },
+        "virtualNetworks_TMP_VMS_CCBJB_vnet_name": {
+            "value": "TMP-VMS-CCBJB-vnet"
+        },
+        "storageAccounts_tmpvmsccbjbdiag178_name": {
+            "value": "tmpvmsccbjbdiag178"
+        },
+        "networkSecurityGroups_TMP_VMS_CCBJB_nsg_name": {
+            "value": "TMP-VMS-CCBJB-nsg"
+        },
+        "schedules_shutdown_computevm_tmp_vms_ccbjb_name": {
+            "value": "shutdown-computevm-tmp-vms-ccbjb"
+        },
+        "subnets_default_name": {
+            "value": "default"
+        },
+        "securityRules_default_allow_ssh_name": {
+            "value": "default-allow-ssh"
+        },
+        "virtualMachines_TMP_VMS_CCBJB_id": {
+            "value": "/subscriptions/b0e0a52a-384f-46a2-b809-ddec15e60b83/resourceGroups/TMP-VMS-CCBJB/providers/Microsoft.Compute/disks/TMP-VMS-CCBJB_OsDisk_1_6afbe9d56ee9459688d26c8e0817f7b0"
+        }
+    }
+}
